@@ -6,14 +6,14 @@ from sys import argv, exit
 from PyQt5.QtWidgets import QApplication
 
 # Графический интерфейс и логика приложения
-from services import ServicesApp
+from core.services import ServiceGlucose
 
 
 def main():
     # Создание приложения
     app = QApplication(argv)
     # Пользовательский интерфейс и логика
-    ui = ServicesApp()
+    ui = ServiceGlucose()
     # Закрытие приложения по кнопке
     exit(app.exec_())
 
