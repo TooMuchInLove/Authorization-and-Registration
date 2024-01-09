@@ -15,8 +15,6 @@ MAX_LEN_FIELD = 100
 TIMEOUT = 1500
 # Кодирование
 UTF8 = "utf-8"
-# Соль для хэштрования пароля
-SALT = b"\x83\x95\xe8g\xcd\xa2nx{\x0e\x94\xdf\x9a\xc4I\xd2JUs\x084c(\xeb)M\x86\xce\x8ff\xfc"
 # Название БД
 DB_SQLITE3 = "db/users.db"
 
@@ -56,6 +54,7 @@ class Notification:
     USER_ALREADY_EXISTS = "Пользователь уже существует"
     USER_IS_REGISTERED = "Пользователь зарегистрирован"
     USER_NOT_FOUND = "Пользователь не найден"
+    CONNECTION_PROBLEMS = "Подключение отсутствует.\nОшибка сервера"
 
 
 @dataclass(slots=True)

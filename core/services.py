@@ -3,7 +3,8 @@ from hashlib import pbkdf2_hmac
 from datetime import datetime
 from gui.ui import Ui_Application
 from .storage import DataBaseSQLite3, saver, reader
-from core.config.base import Notification as Ntf, UTF8, TIMEOUT, SALT
+from core.config.base import Notification as Ntf, UTF8, TIMEOUT
+from core.config.env import SALT
 from gui.theme import STYLE_ERROR, STYLE_NOTIFICATION
 
 

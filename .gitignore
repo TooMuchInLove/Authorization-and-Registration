@@ -3,6 +3,7 @@
 /venv
 **/__pycache__
 /gui/glucose_form.ui
+/core/config/env.py
 
 # Data base
 /db
