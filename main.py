@@ -4,7 +4,6 @@
 from sys import argv, exit
 # Графический интерфейс
 from PyQt5.QtWidgets import QApplication
-
 # Графический интерфейс и логика приложения
 from core.services import ServiceGlucose
 

@@ -1,24 +1,8 @@
-# -*- coding: utf-8 -*-
-
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QTimer
-from PyQt5.QtCore import QSize
-from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtWidgets import QGridLayout
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QPushButton
-
-from core.config.config import NameWidget as NW
-from core.config.config import WIDTH
-from core.config.config import HEIGHT_MIN
-from core.config.config import HEIGHT_MAX
-from core.config.config import HEIGHT_WIDGETS
-from core.config.config import MAX_LEN_FIELD
-
-from theme import LIGHT_THEME
+from PyQt5.QtCore import Qt, QTimer, QSize, QRect
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLabel, QLineEdit, QPushButton
+from core.config.base import NameWidget as NW, WIDTH, HEIGHT_MIN, HEIGHT_MAX, HEIGHT_WIDGETS, MAX_LEN_FIELD
+from .theme import LIGHT_THEME
 
 
 class Ui_Application(QWidget):
@@ -83,12 +67,12 @@ class Ui_Application(QWidget):
 
     def setup_text(self) -> None:
         """ Устанавливаем текст для виджетов """
-        self.setWindowTitle(NW.APP.value)
-        self.leLogin.setPlaceholderText(NW.PLACEHOLDER_LOGIN.value)
-        self.lePassword.setPlaceholderText(NW.PLACEHOLDER_PASSWORD.value)
-        self.leRepeatPassword.setPlaceholderText(NW.PLACEHOLDER_REPEAT_PASSWORD.value)
-        self.pbOk.setText(NW.BUTTON_OK.value)
-        self.pbClose.setText(NW.BUTTON_CLOSE.value)
+        self.setWindowTitle(NW.APP)
+        self.leLogin.setPlaceholderText(NW.PLACEHOLDER_LOGIN)
+        self.lePassword.setPlaceholderText(NW.PLACEHOLDER_PASSWORD)
+        self.leRepeatPassword.setPlaceholderText(NW.PLACEHOLDER_REPEAT_PASSWORD)
+        self.pbOk.setText(NW.BUTTON_OK)
+        self.pbClose.setText(NW.BUTTON_CLOSE)
 
     def setup_object_name(self) -> None:
         """ Задаём некоторым виджетам имена для css (theme.py) """
@@ -112,14 +96,14 @@ class Ui_Application(QWidget):
     def go_authorizator(self) -> None:
         """ Пройдите авторизацию """
         self.leRepeatPassword.setVisible(False)
-        self.pbCheck.setText(NW.REGISTRATION.value)
-        self.lbLogin.setText(NW.AUTHORIZATION.value)
+        self.pbCheck.setText(NW.REGISTRATION)
+        self.lbLogin.setText(NW.AUTHORIZATION)
 
     def go_registration(self) -> None:
         """ Пройдите регистрацию """
         self.leRepeatPassword.setVisible(True)
-        self.pbCheck.setText(NW.AUTHORIZATION.value)
-        self.lbLogin.setText(NW.REGISTRATION.value)
+        self.pbCheck.setText(NW.AUTHORIZATION)
+        self.lbLogin.setText(NW.REGISTRATION)
 
     def goto_reset_password_in_field(self) -> None:
         """ Перейдите к сбросу пароля в поле ввода """

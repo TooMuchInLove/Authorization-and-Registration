@@ -1,22 +1,10 @@
-# -*- coding: utf-8 -*-
-
 from typing import Callable
 from hashlib import pbkdf2_hmac
 from datetime import datetime
-
 from gui.ui import Ui_Application
-
-from storage import DataBaseSQLite3
-from storage import saver
-from storage import reader
-
-from core.config.config import Notification as Ntf
-from core.config.config import UTF8
-from core.config.config import TIMEOUT
-from core.config.config import SALT
-
-from gui.theme import STYLE_ERROR
-from gui.theme import STYLE_NOTIFICATION
+from .storage import DataBaseSQLite3, saver, reader
+from core.config.base import Notification as Ntf, UTF8, TIMEOUT, SALT
+from gui.theme import STYLE_ERROR, STYLE_NOTIFICATION
 
 
 class ServiceGlucose:
@@ -68,7 +56,7 @@ class ServiceGlucose:
         password = self.get_password()
         # Проверяем содержимое поля (логин пользователя)
         if self.__go_check_field(self.__app.set_focus_in_login_field,
-                                 Ntf.EMPTY.value, login): return None
+                                 Ntf.EMPTY, login): return None
         # Данные из БД
         response_data = reader(DataBaseSQLite3())
         if self.__isRA:
@@ -87,20 +75,20 @@ class ServiceGlucose:
         """ Перейти к регистрации пользователя """
         for user, _ in _response_db:
             if _login == user:
-                self.__popup_notification(Ntf.USER_ALREADY_EXISTS.value, STYLE_NOTIFICATION)
+                self.__popup_notification(Ntf.USER_ALREADY_EXISTS, STYLE_NOTIFICATION)
                 self.__app.goto_reset_password_in_field()
                 return None
         if self.__go_check_field(self.__app.set_focus_in_password_field,
-                                 Ntf.EMPTY.value, _password): return None
+                                 Ntf.EMPTY, _password): return None
         # Введённый пароль (повторно)
         repeat_password = self.get_repeat_password()
         if self.__go_check_field(self.__app.set_focus_in_repeat_password_field,
-                                 Ntf.REPEAT_PASSWORD.value, repeat_password): return None
+                                 Ntf.REPEAT_PASSWORD, repeat_password): return None
         if self.__go_check_fields(self.__app.set_focus_in_repeat_password_field,
-                                  Ntf.INVALID_PASSWORD.value, repeat_password, _password): return None
+                                  Ntf.INVALID_PASSWORD, repeat_password, _password): return None
         # Сохранение пользователя
         saver([_login, get_hash_password(_password), get_datetime_now()], DataBaseSQLite3())
-        self.__popup_notification(Ntf.USER_IS_REGISTERED.value, STYLE_NOTIFICATION)
+        self.__popup_notification(Ntf.USER_IS_REGISTERED, STYLE_NOTIFICATION)
         self.__app.goto_reset_password_in_field()
         self.__app.go_authorizator()
         self.set_flag_registration_or_authorization()
@@ -109,17 +97,17 @@ class ServiceGlucose:
                                 _response_db: list) -> None:
         """ Перейти к авторизации пользователя """
         if self.__go_check_field(self.__app.set_focus_in_password_field,
-                                 Ntf.EMPTY.value, _password): return None
+                                 Ntf.EMPTY, _password): return None
         for user, passw in _response_db:
             if _login == user:
                 if self.__go_check_fields(self.__app.set_focus_in_password_field,
-                                          Ntf.INVALID_PASSWORD.value,
+                                          Ntf.INVALID_PASSWORD,
                                           get_hash_password(_password), passw): return None
-                self.__popup_notification(Ntf.AUTHORIZATION_SUCCESSFUL.value, STYLE_NOTIFICATION)
+                self.__popup_notification(Ntf.AUTHORIZATION_SUCCESSFUL, STYLE_NOTIFICATION)
                 self.__app.delete_all_widgets()
                 self.__app.create_new_comp(_login)
                 return None
-        self.__popup_notification(Ntf.USER_NOT_FOUND.value, STYLE_ERROR)
+        self.__popup_notification(Ntf.USER_NOT_FOUND, STYLE_ERROR)
         self.__app.goto_reset_password_in_field()
         self.__app.set_focus_in_login_field()
 

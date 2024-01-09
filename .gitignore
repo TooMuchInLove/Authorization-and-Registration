@@ -1,0 +1,13 @@
+# Python files
+/.idea
+/venv
+**/__pycache__
+/gui/glucose_form.ui
+
+# Data base
+/db
+
+# Images
+
+# Docker files
+/docker

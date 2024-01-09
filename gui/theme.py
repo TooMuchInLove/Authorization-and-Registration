@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from core.config.config import FontStyle as FS
-from core.config.config import Pallete as PL
+from core.config.base import FontStyle as FS, Pallete as PL
 
 
 # Светлая тема приложения
